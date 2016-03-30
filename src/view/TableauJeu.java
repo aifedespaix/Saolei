@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
-/**
- *
- * @author AifeDesPaix
- */
 public class TableauJeu {
+    Case jeu[][];
+
+    public TableauJeu() {
+        jeu = new Case[30][30];
+    }
+    
+    public TableauJeu(int x, int y) {
+        jeu = new Case[x][y];
+    }
+    
+    
     
 }
