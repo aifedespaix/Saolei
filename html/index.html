@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="../css/design.css">
-	<script type="text/javascript" src="../js/animatinoDecors.js"></script>
+	<script type="text/javascript" src="../js/framework/jquery.js"></script>
+	<script type="text/javascript" src="../js/animationDecors.js"></script>
 </head>
 <body>
-<img id="title" src="../images/Titre.png">
-
-<img id="bouttonJouer" src="../images/jouer1.png">
+	<div id="menuPrincipal">
+		<img id="bouttonOption" alt="Options" name="Menu Options" title="Menu Option" src="../images/bouttonOptions.png">
+		<img id="title" src="../images/Titre.png">
+		<img id="bouttonJouer" src="../images/jouer.png" title="Jouer à Saolei">
+	</div>
+	<div id="option">
+		<h2>Paramètres</h2>
+		<form>
+			<div class="formulaireParametres">
+				<h3>Map</h3>
+				<label for="xMap">Hauteur Map </label> <input name="xMap" id="xMap" type="number" value="25"> </input><br/>
+				<label for="yMap">Largeur Map </label> <input name="yMap" id="yMap" type="yMap" value="25"> </input><br/>
+			</div>
+			<div class="formulaireParametres">
+				<h3>Cases</h3>
+				<label for="xCase">Hauteur Case </label> <input name="xCase" id="xCase" type="number" value="50"> </input>px<br/>
+				<label for="yCase">Largeur Case </label> <input name="yCase" id="yCase" type="number" value="50"> </input>px<br/>
+				<h3>Mines</h3>
+				<label for="nbMines">Nombre Mines </label> <input name="nbMines" id="nbMines" type="number" value="50"> </input><br/>
+			</div>
+		</form>
+		<img id="bouttonValiderOption" src="../images/bouttonValider1.png" title="Valider Et Sauvegarder">
+		<img id="bouttonAnnulerOption" src="../images/bouttonAnnuler.png" title="Annuler les Modifications">
+	</div>
+	<div id="jeu">
+		<div id="jeuInfos"></div>
+		<div id="jeuPlateau"
+	</div>
 </body>
 </html>
