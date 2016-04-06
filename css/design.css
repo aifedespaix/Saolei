@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "Bombing";
+    src: url('../fonts/Bombing.ttf');
+}
+
+html, body {
+	background-image: url("../images/fond.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#title {
+	height: 65%;
+	width: auto;
+	display: block;
+	text-align: center;
+	margin: auto;
+}
+
+#bouttonJouer {
+	position: fixed;
+	bottom: 10%;
+	width: 25%;
+	left: 37.5%;
+}
+
+#zoneDeJeu {
+	display: block;
+	width: 85%;
+	margin: auto;
+}
+
+#plateau {
+	float: left;
+	background-color: blue;
+	display: block;
+	width: 80%;
+	height: 300px;
+}
+
+#parametres {
+	float: left;
+	background-color: grey;
+	display: block;
+	width: 20%;
+	height: 300px;
+}

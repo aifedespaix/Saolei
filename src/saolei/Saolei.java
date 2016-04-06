@@ -13,6 +13,5 @@ public class Saolei{
      public static void main(String[] args) {
          Fenetre f = new Fenetre();
          f.demarrer();
-         
      }
 }

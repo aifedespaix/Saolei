@@ -6,6 +6,9 @@ public class Case {
     /* Largeur et auteur d'une case */
     protected int width = 20, height = 20;
     
+    /* Position dans le plateau */
+    protected int x, y;
+    
     /* Etat de la case (bombe (b), drapeau (d), chiffre (1-8), question (q) vide (v)) */
     protected char etat;
     
@@ -17,7 +20,7 @@ public class Case {
      * Constructeur de case, si l'état n'est pas valide, est initié à vide.
      * @param etat Etat de la case (b,d,1-8,q,v)
      */
-    public Case(char etat) {
+    public Case(int x, int y, char etat) {
         if(ComparaisonString.charParmisTab(etat, listeEtats))
             this.etat = etat;
         else
@@ -27,8 +30,15 @@ public class Case {
     /**
      * Constructeur par défaut : Case vide
      */
-    public Case() {
+    public Case(int x, int y) {
+        this.x = x;
+        this.y = y;
         etat = 'v';
+    }
+    
+    public Case[] getVoisins() {
+        Case c[] = {new Case(1, 1, 'v')};
+        return c;
     }
     
     

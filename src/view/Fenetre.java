@@ -21,6 +21,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -43,7 +44,7 @@ public class Fenetre extends Application {
         final Scene scene = new Scene(webView, defaultSizeWinX, defaultSizeWinY); 
         primaryStage.setTitle(title); 
         primaryStage.setScene(scene); 
-        
+        primaryStage.getIcons().add(new Image("file:images/bombe.png"));
         primaryStage.show(); 
 
     }
