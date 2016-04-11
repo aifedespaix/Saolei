@@ -1,5 +1,8 @@
 $(function() {
 	$("html").hide();
+	loadCookie();
+	saveCookie();
+	
 	// Chargement menu principal
 	modeMenuPrincipal();
 
@@ -10,6 +13,12 @@ $(function() {
 	// Charge les écouteurs
 	ecouteursMenuPrincipal();
 	ecouteursOption();
+	ecouteursOptionJeu();
+	ecouteursJeu();
+
+	// Mise en place du timer
+	duree = 0;
+	setInterval(timer ,1000);
 });
 
 $(document).ready(function() {
@@ -49,21 +58,62 @@ function animOption() {
 
 // Ecouteurs
 function ecouteursMenuPrincipal() {
+	// Désactive Clic Droit
+  	document.oncontextmenu = function() {return false;};
+
 	$("#bouttonJouer").click(function() {
+		loadCookie();
 		modeJouer();
+		jouer();
 	});
+
 	$("#bouttonOption").click(function() {
+		loadCookie();
 		modeOption();
 	});
 }
 
 function ecouteursOption() {
 	$("#bouttonAnnulerOption").click(function() {
+		loadCookie();
 		modeMenuPrincipal();
 	});
+
 	$("#bouttonValiderOption").click(function() {
+		saveCookie();
 		modeMenuPrincipal();
 	});
+}
+
+function ecouteursOptionJeu() {
+	$("#btnReduireCases").click(function() {
+		reduireCases();
+	});
+
+	$("#btnAgrandirCases").click(function() {
+		agrandireCases();
+	});
+
+	$("#abandon").click(function() {
+		modeMenuPrincipal();
+	});
+
+	$("#retry").click(function() {
+		recommencerJeu();
+	});
+}
+
+function ecouteursJeu() {
+	$(".caseJeu").click(function() {
+		clicCase(this.id);
+	});
+
+	$(".caseJeu").mousedown(function(e){ 
+    if( e.button == 2 ) { 
+    	clicDroitCase(this.id);
+    } 
+    return true; 
+  }); 
 }
 
 

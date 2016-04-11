@@ -1,39 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="../css/design.css">
-	<script type="text/javascript" src="../js/framework/jquery.js"></script>
-	<script type="text/javascript" src="../js/animationDecors.js"></script>
+    <title>Saolei - Demineur</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/design.css">
+
+    <script type="text/javascript" src="../js/framework/jquery.js"></script>
+
+    <script type="text/javascript" src="../js/Image.js"></script>
+    <script type="text/javascript" src="../js/Coordonnees.js"></script>
+    <script type="text/javascript" src="../js/Type.js"></script>
+    <script type="text/javascript" src="../js/Case.js"></script>
+    <script type="text/javascript" src="../js/TableauJeu.js"></script>
+
+    <script type="text/javascript" src="../js/Cookie.js"></script>
+    <script type="text/javascript" src="../js/animationDecors.js"></script>
 </head>
 <body>
 	<div id="menuPrincipal">
-		<img id="bouttonOption" alt="Options" name="Menu Options" title="Menu Option" src="../images/bouttonOptions.png">
+		<img id="bouttonOption" alt="Options" title="Menu Option" src="../images/bouttonOptions.png">
 		<img id="title" src="../images/Titre.png">
 		<img id="bouttonJouer" src="../images/jouer.png" title="Jouer à Saolei">
 	</div>
 	<div id="option">
-		<h2>Paramètres</h2>
+		<h2>Parametres</h2>
 		<form>
 			<div class="formulaireParametres">
 				<h3>Map</h3>
-				<label for="xMap">Hauteur Map </label> <input name="xMap" id="xMap" type="number" value="25"> </input><br/>
-				<label for="yMap">Largeur Map </label> <input name="yMap" id="yMap" type="yMap" value="25"> </input><br/>
+				<label for="xMap">Hauteur Map </label> <input name="xMap" id="xMap" type="number" value="9"> </input><br/>
+				<label for="yMap">Largeur Map </label> <input name="yMap" id="yMap" type="number" value="9"> </input><br/>
 			</div>
 			<div class="formulaireParametres">
-				<h3>Cases</h3>
+				<!--<h3>Cases</h3>
 				<label for="xCase">Hauteur Case </label> <input name="xCase" id="xCase" type="number" value="50"> </input>px<br/>
-				<label for="yCase">Largeur Case </label> <input name="yCase" id="yCase" type="number" value="50"> </input>px<br/>
+				<label for="yCase">Largeur Case </label> <input name="yCase" id="yCase" type="number" value="50"> </input>px<br/>-->
 				<h3>Mines</h3>
-				<label for="nbMines">Nombre Mines </label> <input name="nbMines" id="nbMines" type="number" value="50"> </input><br/>
+				<label for="nbMines">Nombre Mines </label> <input name="nbMines" id="nbMines" type="number" value="12"> </input><br/>
 			</div>
 		</form>
 		<img id="bouttonValiderOption" src="../images/bouttonValider1.png" title="Valider Et Sauvegarder">
 		<img id="bouttonAnnulerOption" src="../images/bouttonAnnuler.png" title="Annuler les Modifications">
 	</div>
 	<div id="jeu">
-		<div id="jeuInfos"></div>
-		<div id="jeuPlateau"
+		<div id="jeuInfos">
+			<button id="btnReduireCases">Réduire les Cases</button>
+			<button id="btnAgrandirCases">Agrandir les Cases</button>
+			<h1 id="messageFin"></h1>
+			<p>
+				Temps écoulé : <span id="tempsEcoule"></span> secondes<br>
+				Nombre de points : <span id="affNbPts"></span><br>
+				Nombre de drapeaux disponibles : <span id="affNbDrap"></span>
+			</p>
+			<button id="abandon">Abandonner</button>
+			<button id="retry">Recommencer</button>
+		</div>
+        <div id="jeuPlateau"></div>
 	</div>
 </body>
 </html>
