@@ -15,5 +15,5 @@ function Case(num) {
 * Retourne le numéro de case en fonction de son ID
 **/
 function getNumCase(IDCase) {
-	return IDCase.substr(4, IDCase.length);
+	return parseInt(IDCase.substr(4, IDCase.length));
 }
