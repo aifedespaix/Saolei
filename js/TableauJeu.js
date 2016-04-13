@@ -114,15 +114,16 @@ function clicBombe(id) {
 }
 
 function clicVide(numCase) {
+	if(numCase==null) return 0;
 	if(!verifierNumCase(numCase)) return 0;
 	
 	var nbB = compterBombesAutour(numCase);
 	if(nbB == 0) {
 		changerImage(numCase, "sansBombe.png");
-		/*clicVide(caseHaut(numCase));
+		clicVide(caseHaut(numCase));
 		clicVide(caseDroite(numCase));
 		clicVide(caseBas(numCase));
-		clicVide(caseGauche(numCase));*/
+		clicVide(caseGauche(numCase));
 	} else changerImage(numCase, nbB+"bombe.png");
 
 	gagner1Point();
