@@ -120,10 +120,10 @@ function clicVide(numCase) {
 	var nbB = compterBombesAutour(numCase);
 	if(nbB == 0) {
 		changerImage(numCase, "sansBombe.png");
-		clicVide(caseHaut(numCase));
-		clicVide(caseDroite(numCase));
-		clicVide(caseBas(numCase));
-		clicVide(caseGauche(numCase));
+		//clicVide(caseHaut(numCase));
+		//clicVide(caseDroite(numCase));
+		//clicVide(caseBas(numCase));
+		//clicVide(caseGauche(numCase));
 	} else changerImage(numCase, nbB+"bombe.png");
 
 	gagner1Point();
