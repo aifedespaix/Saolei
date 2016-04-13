@@ -1,3 +1,6 @@
+var duree;
+var compteurDuree;
+
 $(function() {
 	$("html").hide();
 	loadCookie();
@@ -16,9 +19,6 @@ $(function() {
 	ecouteursOptionJeu();
 	ecouteursJeu();
 
-	// Mise en place du timer
-	duree = 0;
-	setInterval(timer ,1000);
 });
 
 $(document).ready(function() {
@@ -100,6 +100,10 @@ function ecouteursOptionJeu() {
 
 	$("#retry").click(function() {
 		recommencerJeu();
+	});
+
+	$("#new").click(function() {
+		reinitialiserJeu();
 	});
 }
 

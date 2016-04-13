@@ -1,12 +1,18 @@
 var tCase = 30;
 var gameTab;
 
+var premierClic = false;
+
 function jouer() {
 	effacerTerrain();
 	initialiserInfos();
 	creerTableau();
 	placerBombes();
 	ecouteursJeu();
+
+	// Mise en place du timer
+	duree = 0;
+	premierClic = true;
 }
 
 function effacerTerrain() {
@@ -17,7 +23,7 @@ function initialiserInfos() {
 	duree = 0;
 	$("#affNbPts").html(0);
 	$("#affNbDrap").html(getNBMine);
-	$("#messageFin").html("");
+	$("#messageFin").html(" ");
 }
 
 function recommencerJeu() {
@@ -98,6 +104,10 @@ function getYTab() {
 }
 
 function clicCase(id) {
+	if(premierClic) {
+		premierClic = false;
+		compteurDuree = setInterval(timer ,1000);
+	}
 	switch(gameTab[getNumCase(id)].getType().getNom()) {
 		case 'vide':
 			clicVide(getNumCase(id));
@@ -109,21 +119,27 @@ function clicCase(id) {
 }
 
 function clicBombe(id) {
-	$(".caseJeu").attr("src", "../images/cases/bombe.png");
+	for(i=0; i<gameTab.length; i++) {
+		if(gameTab[i].getType().getNom() == "bombe") $("#case"+i).attr("src", "../images/cases/bombe.png");
+	}
 	$("#messageFin").html("Perdu !");
+	clearInterval(compteurDuree);
 }
 
 function clicVide(numCase) {
-	if(numCase==null) return 0;
-	if(!verifierNumCase(numCase)) return 0;
-	
+	if(numCase==null) return;
+	if(!verifierNumCase(numCase)) return;
+	if( $("#case"+numCase).attr("src") !=  "../images/cases/vide.png") return;
+
 	var nbB = compterBombesAutour(numCase);
 	if(nbB == 0) {
-		changerImage(numCase, "sansBombe.png");
-		//clicVide(caseHaut(numCase));
-		//clicVide(caseDroite(numCase));
-		//clicVide(caseBas(numCase));
-		//clicVide(caseGauche(numCase));
+		changerImage(numCase, "sansBombe.png");	
+		
+		clicVide(caseBas(numCase));
+		clicVide(caseHaut(numCase));
+		clicVide(caseDroite(numCase));
+		clicVide(caseGauche(numCase));
+		
 	} else changerImage(numCase, nbB+"bombe.png");
 
 	gagner1Point();
@@ -140,44 +156,53 @@ function gagner1Point() {
 function caseDroite(numCase) {
 	if((numCase+1)%getXTab() != 0) 
 		return (numCase+1);
+	return null;
 }
 
 function caseGauche(numCase) {
 	if((numCase)%getXTab() != 0) 
 		return (numCase-1);
+	return null;
 }
 
 function caseBas(numCase) {
-	if(numCase+getXTab() < getXTab()*(getYTab()-1)) 
+	if(numCase < getXTab()*getYTab()-getXTab()) 
 		return numCase+getXTab();
+	return null;
 }
 
 function caseHaut(numCase) {
 	if(numCase-getXTab() >= 0) 
 		return numCase-getXTab();
+	return null;
 }
 
 function caseHD(numCase) {
 	if(caseHaut(numCase) != null && caseDroite(numCase) != null)
 		return numCase-getXTab()+1;
+	return null;
 }
 
 function caseHG(numCase) {
 	if(caseHaut(numCase) != null && caseGauche(numCase) != null)
 		return numCase-getXTab()-1;
+	return null;
 }
 
 function caseBD(numCase) {
 	if(caseBas(numCase) != null && caseDroite(numCase) != null)
 		return numCase+getXTab()+1;
+	return null;
 }
 
 function caseBG(numCase) {
 	if(caseBas(numCase) != null && caseGauche(numCase) != null)
 		return numCase+getXTab()-1;
+	return null;
 }
 
 function verifierNumCase(numCase) {
+	if(numCase == null) return false;
 	return(numCase >= 0 && numCase < getXTab()*getYTab());
 }
 
@@ -210,7 +235,10 @@ function compterCasesAutour(numCase) {
 }
 
 function getNomTypeCase(numCase) {
-	return gameTab[numCase].getType().getNom();
+	if(verifierNumCase(numCase))
+		return gameTab[numCase].getType().getNom();
+	else
+		return null;
 }
 
 function isCaseBomb(numCase) {
@@ -246,4 +274,8 @@ function verifierVictoire() {
 			return false;
 	}
 	return win;
+}
+
+function reinitialiserJeu() {
+	jouer();
 }
