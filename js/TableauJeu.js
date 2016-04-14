@@ -267,10 +267,15 @@ function timer() {
 }
 
 function verifierVictoire() {
+	var nbFlag = $("#affNbDrap").html();
+	nbFlag = parseInt(nbFlag);
+	alert(nbFlag);
+	if(nbFlag != 0) return false;
+
 	var win = true;
 	var verif = $(".caseJeu");
 	for(i=0; i<verif.length; i++) {
-		if(verif.substr(50, 58) == "vide.png")
+		if(verif[i].substr(50, 58) == "vide.png") /** DEBUGG ICI **/
 			return false;
 	}
 	return win;
