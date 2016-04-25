@@ -4,6 +4,7 @@ var fini;
 var premierClic;
 var duree;
 var mute = false;
+var compteurDuree;
 
 function jouer() {
 	effacerTerrain();
@@ -19,6 +20,9 @@ function effacerTerrain() {
 
 function initialiserInfos() {
 	duree = 0;
+	$("#tempsEcoule").html(0);
+	arreterCompteur();
+	
 	fini = false;
 	premierClic = true;
 	$("#affNbPts").html(0);
