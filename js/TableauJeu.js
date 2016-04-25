@@ -3,6 +3,7 @@ var gameTab;
 var fini;
 var premierClic;
 var duree;
+var mute = false;
 
 function jouer() {
 	effacerTerrain();
@@ -23,6 +24,7 @@ function initialiserInfos() {
 	$("#affNbPts").html(0);
 	$("#affNbDrap").html(getNBMine);
 	$("#messageFin").html(" ");
+	jouerSon("start");
 }
 
 function recommencerJeu() {
@@ -110,11 +112,10 @@ function clicCase(id) {
 	}
 	switch(gameTab[getNumCase(id)].getType().getNom()) {
 		case 'vide':
-			son_clic.play();
+			jouerSon("clic");
 			clicVide(getNumCase(id));
 		break;
 		case 'bombe':
-			son_boum.play();
 			clicBombe(id);
 		break;
 	}
@@ -134,12 +135,14 @@ function animPerdu() {
 	$("#messageFin").html("Perdu !");
 	arreterCompteur();
 	fini = true;
+	jouerSon("boum");
 }
 
 function animVictoire() {
 	$("#messageFin").html("Bravo vous avez gagné !");
 	arreterCompteur();
 	fini = true;
+	jouerSon("win");
 }
 
 function clicVide(numCase) {
@@ -275,11 +278,13 @@ function clicDroitCase(id) {
 	if(urlImg.substr(urlImg.length-10, urlImg.length) == "danger.png") {
 		changerImage(getNumCase(id), "vide.png");
 		$("#affNbDrap").html(parseInt($("#affNbDrap").html())+1);
+		jouerSon("drapeauOff");
 	} else if(parseInt($("#affNbDrap").html()) == 0) {
 		alert("Vous n'avez plus de drapeaux à poser");
 	} else if(urlImg.substr(urlImg.length-8, urlImg.length) == "vide.png") {
 		changerImage(getNumCase(id), "danger.png");
 		$("#affNbDrap").html(parseInt($("#affNbDrap").html())-1);
+		jouerSon("drapeauOn");
 	}
 
 	if(verifierVictoire()) {
@@ -296,11 +301,10 @@ function verifierVictoire() {
 	if(nombreDrapeauRestant() != 0) return false;
 
 	var verif = $(".caseJeu");
-	var tailleTxt = verif[i].src.length;
 	for(i=0; i<verif.length; i++) {
-		verif[i].src.substr(tailleTxt-8, tailleTxt);
-		if(verif[i].src.substr(tailleTxt-8, tailleTxt) == "vide.png")
-			return false;
+		var tailleTxt = verif[i].src.length;
+		var urlIco = verif[i].src.substr(tailleTxt-8, tailleTxt);
+		if(urlIco == "vide.png") return false;
 	}
 	return true;
 }
@@ -320,4 +324,29 @@ function demarerCompteur() {
 
 function arreterCompteur() {
 	clearInterval(compteurDuree);
+}
+
+function jouerSon(nom) {
+	if(!mute) {
+		switch(nom) {
+			case "boum": 
+				son_boum.play();
+			break;
+			case "clic": 
+				son_clic.play();
+			break;
+			case "start": 
+				son_start.play();
+			break;
+			case "win": 
+				son_win.play();
+			break;
+			case "drapeauOn": 
+				son_drapeauOn.play();
+			break;
+			case "drapeauOff": 
+				son_drapeauOff.play();
+			break;
+		}
+	}
 }

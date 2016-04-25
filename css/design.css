@@ -4,7 +4,6 @@
 }
 
 html {
-
 	overflow: scroll;
 }
 
@@ -132,4 +131,13 @@ button {
 	background-color: rgba(0, 108, 255, 0.5);
 	border-radius: 2%;
 	border: none;
+}
+
+#bouttonAudio {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 5%;
+	margin: 2%;
+	z-index: 200;
 }

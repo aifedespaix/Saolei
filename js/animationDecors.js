@@ -1,8 +1,11 @@
-
 var widthWindow;
-var son_boum = new Audio('../sons/boum.ogg');
-var son_clic = new Audio('../sons/clic.ogg');
-var son_start = new Audio('../sons/start.ogg');
+
+var son_boum 		= new Audio('../sons/boum.ogg');
+var son_clic 		= new Audio('../sons/clic.ogg');
+var son_start 		= new Audio('../sons/start.ogg');
+var son_win 		= new Audio('../sons/applaudissements.ogg');
+var son_drapeauOn 	= new Audio('../sons/drapeauOn.ogg');
+var son_drapeauOff 	= new Audio('../sons/drapeauOff.ogg');
 
 $(function() {
 	$("html").hide();
@@ -17,6 +20,7 @@ $(function() {
 	animOption();
 
 	// Charge les écouteurs
+	ecouteurBouttonAudio();
 	ecouteursMenuPrincipal();
 	ecouteursOption();
 	ecouteursOptionJeu();
@@ -75,7 +79,6 @@ function ecouteursMenuPrincipal() {
   	document.oncontextmenu = function() {return false;};
 
 	$("#bouttonJouer").click(function() {
-		son_start.play();
 		loadCookie();
 		modeJouer();
 		jouer();
@@ -85,6 +88,15 @@ function ecouteursMenuPrincipal() {
 		loadCookie();
 		modeOption();
 	});
+}
+
+function ecouteurBouttonAudio() {
+	$("#bouttonAudio").click(function() {
+		mute = !mute;
+		if(mute) 	$("#bouttonAudio").attr("src", "../images/audioOff.png");
+		else 		$("#bouttonAudio").attr("src", "../images/audioOn.png");
+	}); 
+
 }
 
 function ecouteursOption() {
