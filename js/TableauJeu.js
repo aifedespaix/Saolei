@@ -1,5 +1,8 @@
 var tCase = 30;
 var gameTab;
+var fini;
+var premierClic;
+var duree;
 
 function jouer() {
 	effacerTerrain();
@@ -15,9 +18,11 @@ function effacerTerrain() {
 
 function initialiserInfos() {
 	duree = 0;
+	fini = false;
+	premierClic = true;
 	$("#affNbPts").html(0);
 	$("#affNbDrap").html(getNBMine);
-	$("#messageFin").html("");
+	$("#messageFin").html(" ");
 }
 
 function recommencerJeu() {
@@ -96,7 +101,13 @@ function getYTab() {
 	var tabSize = getDimmenssionTableau();
 	return parseInt(tabSize[1]);
 }
+
 function clicCase(id) {
+	if(fini) return;
+	if(premierClic) {
+		premierClic = false;
+		demarerCompteur();
+	}
 	switch(gameTab[getNumCase(id)].getType().getNom()) {
 		case 'vide':
 			son_clic.play();
@@ -107,23 +118,48 @@ function clicCase(id) {
 			clicBombe(id);
 		break;
 	}
+	if(verifierVictoire()) {
+		animVictoire();
+	}
 }
 
 function clicBombe(id) {
-	$(".caseJeu").attr("src", "../images/cases/bombe.png");
+	for(i=0; i<gameTab.length; i++) {
+		if(gameTab[i].getType().getNom() == "bombe") $("#case"+i).attr("src", "../images/cases/bombe.png");
+	}
+	animPerdu();
+}
+
+function animPerdu() {
 	$("#messageFin").html("Perdu !");
+	arreterCompteur();
+	fini = true;
+}
+
+function animVictoire() {
+	$("#messageFin").html("Bravo vous avez gagné !");
+	arreterCompteur();
+	fini = true;
 }
 
 function clicVide(numCase) {
-	if(!verifierNumCase(numCase)) return 0;
-	
+	if(numCase==null) return;
+	if(!verifierNumCase(numCase)) return;
+	if( $("#case"+numCase).attr("src") !=  "../images/cases/vide.png") return;
+
 	var nbB = compterBombesAutour(numCase);
 	if(nbB == 0) {
-		changerImage(numCase, "sansBombe.png");
-		/*clicVide(caseHaut(numCase));
-		clicVide(caseDroite(numCase));
+		changerImage(numCase, "sansBombe.png");	
+		
 		clicVide(caseBas(numCase));
-		clicVide(caseGauche(numCase));*/
+		clicVide(caseHaut(numCase));
+		clicVide(caseDroite(numCase));
+		clicVide(caseGauche(numCase));
+		clicVide(caseHD(numCase));
+		clicVide(caseHG(numCase));
+		clicVide(caseBD(numCase));
+		clicVide(caseBG(numCase));
+		
 	} else changerImage(numCase, nbB+"bombe.png");
 
 	gagner1Point();
@@ -140,44 +176,53 @@ function gagner1Point() {
 function caseDroite(numCase) {
 	if((numCase+1)%getXTab() != 0) 
 		return (numCase+1);
+	return null;
 }
 
 function caseGauche(numCase) {
 	if((numCase)%getXTab() != 0) 
 		return (numCase-1);
+	return null;
 }
 
 function caseBas(numCase) {
-	if(numCase+getXTab() < getXTab()*(getYTab()-1)) 
+	if(numCase < getXTab()*getYTab()-getXTab()) 
 		return numCase+getXTab();
+	return null;
 }
 
 function caseHaut(numCase) {
 	if(numCase-getXTab() >= 0) 
 		return numCase-getXTab();
+	return null;
 }
 
 function caseHD(numCase) {
 	if(caseHaut(numCase) != null && caseDroite(numCase) != null)
 		return numCase-getXTab()+1;
+	return null;
 }
 
 function caseHG(numCase) {
 	if(caseHaut(numCase) != null && caseGauche(numCase) != null)
 		return numCase-getXTab()-1;
+	return null;
 }
 
 function caseBD(numCase) {
 	if(caseBas(numCase) != null && caseDroite(numCase) != null)
 		return numCase+getXTab()+1;
+	return null;
 }
 
 function caseBG(numCase) {
 	if(caseBas(numCase) != null && caseGauche(numCase) != null)
 		return numCase+getXTab()-1;
+	return null;
 }
 
 function verifierNumCase(numCase) {
+	if(numCase == null) return false;
 	return(numCase >= 0 && numCase < getXTab()*getYTab());
 }
 
@@ -210,7 +255,10 @@ function compterCasesAutour(numCase) {
 }
 
 function getNomTypeCase(numCase) {
-	return gameTab[numCase].getType().getNom();
+	if(verifierNumCase(numCase))
+		return gameTab[numCase].getType().getNom();
+	else
+		return null;
 }
 
 function isCaseBomb(numCase) {
@@ -221,6 +269,8 @@ function isCaseBomb(numCase) {
 }
 
 function clicDroitCase(id) {
+	if(fini) return;
+
 	var urlImg = $("#"+id).attr("src");
 	if(urlImg.substr(urlImg.length-10, urlImg.length) == "danger.png") {
 		changerImage(getNumCase(id), "vide.png");
@@ -230,20 +280,44 @@ function clicDroitCase(id) {
 	} else if(urlImg.substr(urlImg.length-8, urlImg.length) == "vide.png") {
 		changerImage(getNumCase(id), "danger.png");
 		$("#affNbDrap").html(parseInt($("#affNbDrap").html())-1);
-	} 
+	}
+
+	if(verifierVictoire()) {
+		animVictoire();
+	}
 }
 
-var duree;
 function timer() {
 	$("#tempsEcoule").html(duree++);
 }
 
 function verifierVictoire() {
-	var win = true;
+	// Si on a pas posé tous les drapeaux on a pas gagné
+	if(nombreDrapeauRestant() != 0) return false;
+
 	var verif = $(".caseJeu");
+	var tailleTxt = verif[i].src.length;
 	for(i=0; i<verif.length; i++) {
-		if(verif.substr(50, 58) == "vide.png")
+		verif[i].src.substr(tailleTxt-8, tailleTxt);
+		if(verif[i].src.substr(tailleTxt-8, tailleTxt) == "vide.png")
 			return false;
 	}
-	return win;
+	return true;
+}
+
+function nombreDrapeauRestant() {
+	var r = $("#affNbDrap").html();
+	return parseInt(r);
+}
+
+function reinitialiserJeu() {
+	jouer();
+}
+
+function demarerCompteur() {
+	compteurDuree = setInterval(timer ,1000);
+}
+
+function arreterCompteur() {
+	clearInterval(compteurDuree);
 }

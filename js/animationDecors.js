@@ -24,7 +24,6 @@ $(function() {
 
 	// Mise en place du timer
 	duree = 0;
-	setInterval(timer ,1000);
 
 });
 
@@ -115,6 +114,10 @@ function ecouteursOptionJeu() {
 
 	$("#retry").click(function() {
 		recommencerJeu();
+	});
+
+	$("#new").click(function() {
+		reinitialiserJeu();
 	});
 }
 
