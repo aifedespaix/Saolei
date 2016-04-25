@@ -29,15 +29,15 @@
 		<form>
 			<div class="formulaireParametres">
 				<h3>Map</h3>
-				<label for="xMap">Hauteur Map </label> <input name="xMap" id="xMap" type="number" value="9"> </input><br/>
-				<label for="yMap">Largeur Map </label> <input name="yMap" id="yMap" type="number" value="9"> </input><br/>
+				<label for="xMap">Hauteur Map </label> <input name="xMap" id="xMap" type="number" value="9" min="1" max="50"> </input><br/>
+				<label for="yMap">Largeur Map </label> <input name="yMap" id="yMap" type="number" value="9" min="1" max="50"> </input><br/>
 			</div>
 			<div class="formulaireParametres">
 				<!--<h3>Cases</h3>
 				<label for="xCase">Hauteur Case </label> <input name="xCase" id="xCase" type="number" value="50"> </input>px<br/>
 				<label for="yCase">Largeur Case </label> <input name="yCase" id="yCase" type="number" value="50"> </input>px<br/>-->
 				<h3>Mines</h3>
-				<label for="nbMines">Nombre Mines </label> <input name="nbMines" id="nbMines" type="number" value="12"> </input><br/>
+				<label for="nbMines">Nombre Mines </label> <input name="nbMines" id="nbMines" type="number" value="12" min="0"> </input><br/>
 			</div>
 		</form>
 		<img id="bouttonValiderOption" src="../images/bouttonValider1.png" title="Valider Et Sauvegarder">

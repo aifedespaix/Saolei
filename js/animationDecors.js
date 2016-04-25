@@ -106,6 +106,11 @@ function ecouteursOption() {
 	});
 
 	$("#bouttonValiderOption").click(function() {
+		if(!verifierMenuOption()) {
+			loadCookie();
+			alert("Vous avez remplis n'importe comment.");
+			return -1;
+		}
 		saveCookie();
 		modeMenuPrincipal();
 	});

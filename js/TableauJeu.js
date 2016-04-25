@@ -6,6 +6,8 @@ var duree;
 var mute = false;
 var compteurDuree;
 
+var positionBombes
+
 function jouer() {
 	effacerTerrain();
 	initialiserInfos();
@@ -51,7 +53,6 @@ function creerTableau() {
 	}
 }
 
-var positionBombes
 function placerBombes() {
 	recuperePostionBombesAlea();
 	for(i=0; i<positionBombes.length; i++) {
@@ -61,7 +62,8 @@ function placerBombes() {
 
 function recuperePostionBombesAlea() {
 	positionBombes = new Array();
-	for(i=0; i<getNBMine(); i++) {
+	var nbAPoser = getNBMine();
+	for(i=0; i<nbAPoser; i++) {
 		var pos;
 		do {
 			pos = posAlea();
@@ -69,6 +71,7 @@ function recuperePostionBombesAlea() {
 		positionBombes.push(pos);
 	}
 }
+
 function estDejaPresent(pos) {
 	for(i=0; i<positionBombes.length; i++)
 		if(pos == (positionBombes[i])) return true;
@@ -353,4 +356,26 @@ function jouerSon(nom) {
 			break;
 		}
 	}
+}
+
+function verifierMenuOption() {
+	var optXMap = $("#xMap").val();
+	var optYMap = $("#yMap").val();
+	var optNbMines = $("#nbMines").val();
+
+	// Si coordonnée négative
+	if(optXMap <= 0) return false;
+	if(optYMap <= 0) return false;
+
+	// Si coordonnée trop grande
+	if(optXMap > 50) return false;
+	if(optYMap > 50) return false;
+
+	// Si nb négatif de mines
+	if(optNbMines < 0) return false;
+
+	// Si plus de mines que de cases
+	if(optNbMines > optXMap*optYMap) return false;
+
+	return true;
 }
