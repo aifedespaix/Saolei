@@ -22,7 +22,7 @@ function initialiserInfos() {
 	duree = 0;
 	$("#tempsEcoule").html(0);
 	arreterCompteur();
-	
+
 	fini = false;
 	premierClic = true;
 	$("#affNbPts").html(0);
@@ -143,7 +143,7 @@ function animPerdu() {
 }
 
 function animVictoire() {
-	$("#messageFin").html("Bravo vous avez gagné !");
+	$("#messageFin").html("Bravo vous avez gagne !");
 	arreterCompteur();
 	fini = true;
 	jouerSon("win");
