@@ -1,3 +1,9 @@
+
+var widthWindow;
+var son_boum = new Audio('../sons/boum.ogg');
+var son_clic = new Audio('../sons/clic.ogg');
+var son_start = new Audio('../sons/start.ogg');
+
 $(function() {
 	$("html").hide();
 	loadCookie();
@@ -19,10 +25,18 @@ $(function() {
 	// Mise en place du timer
 	duree = 0;
 	setInterval(timer ,1000);
+
 });
 
 $(document).ready(function() {
 	$("html").show();  
+});
+
+
+
+$(window).resize(function() {
+	widthWindow = $(window).width();
+	$("#option").css("font-size", ((1.5/100)*widthWindow)+"px");
 });
 
 
@@ -62,6 +76,7 @@ function ecouteursMenuPrincipal() {
   	document.oncontextmenu = function() {return false;};
 
 	$("#bouttonJouer").click(function() {
+		son_start.play();
 		loadCookie();
 		modeJouer();
 		jouer();

@@ -96,13 +96,14 @@ function getYTab() {
 	var tabSize = getDimmenssionTableau();
 	return parseInt(tabSize[1]);
 }
-
 function clicCase(id) {
 	switch(gameTab[getNumCase(id)].getType().getNom()) {
 		case 'vide':
+			son_clic.play();
 			clicVide(getNumCase(id));
 		break;
 		case 'bombe':
+			son_boum.play();
 			clicBombe(id);
 		break;
 	}
