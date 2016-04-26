@@ -46,6 +46,7 @@ function getCookie(sName) {
 function getDimmenssionTableau() {
 	return new Array(tableauSauvegarde[0][1], tableauSauvegarde[1][1]);
 }
+
 /*
 function getDimmenssionCase() {
 	return new Array(tableauSauvegarde[2][1], tableauSauvegarde[3][1]);

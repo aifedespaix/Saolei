@@ -99,6 +99,7 @@ html, body {
 .caseJeu{
 	display: block;
 	float: left;
+	opacity: 0.75;
 }
 
 #jeu {
@@ -113,10 +114,12 @@ html, body {
 
 #jeuInfos {
 	display: block;
-	width: 100%;
-	height: 30%;
+	width: 15%;
+	height: 40%;
 	margin: 0;
 	text-align: center;
+	float: left;
+	margin: 8%;
 }
 
 #jeuPlateau {
